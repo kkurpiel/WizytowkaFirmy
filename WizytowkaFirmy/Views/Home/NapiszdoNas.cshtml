@@ -1,0 +1,27 @@
+﻿@model NapiszDoNasModel
+
+<h1>Napisz do nas</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form asp-action="NapiszDoNas" method="post">
+    <div>
+        <label for="Email">E-mail</label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label for="Teat">Temat</label>
+        <input asp-for="Temat" />
+        <span asp-validation-for="Temat"></span>
+    </div>
+    <div>
+        <label for="Tresc">Treść</label>
+        <textarea asp-for="Tresc"></textarea>
+        <span asp-validation-for="Tresc"></span>
+    </div>
+    <button type="submit">Wyślij</button>
+</form>

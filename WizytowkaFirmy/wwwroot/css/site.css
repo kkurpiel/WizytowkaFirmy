@@ -20,3 +20,15 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+yellow-main {
+    color: rgb(246, 241,118);
+}
+
+blue-main {
+    color: rgb(29,97,174);
+}
+
+grey-main {
+    color: rgb(44, 54, 64);
+}
