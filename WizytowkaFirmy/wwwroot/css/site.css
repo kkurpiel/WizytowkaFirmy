@@ -1,5 +1,5 @@
 html {
-  font-size: 14px;
+  font-size: 20px;
 }
 
 @media (min-width: 768px) {
@@ -19,16 +19,67 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: rgb(44, 54, 64); /* szary kolor */
+  color: whitesmoke;
 }
 
-yellow-main {
-    color: rgb(246, 241,118);
+header {
+    background-color: rgb(246, 241, 118); /* ¿ó³ty kolor */
+    color: rgb(29, 97, 174);
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 0% 30%);
+    padding: 20px;    
+}
+.navbar {
+    background-color: transparent;
+    box-shadow: none;
+    font-family: Verdana, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(29, 97, 174);
+    letter-spacing: 1px;
+}
+.navbar a.nav-link {
+    color: rgb(29, 97, 174) !important; /* niebieski kolor */
+    font-weight: bold;
+    margin-right: 15px;
 }
 
-blue-main {
-    color: rgb(29,97,174);
+.navbar a.nav-link:hover {
+    color: rgb(0, 50, 150) !important;
 }
 
-grey-main {
-    color: rgb(44, 54, 64);
+.left-bottom {
+    position: absolute;
+    bottom: 15%;
+    left: 15%;
+    padding: 10px;
+}
+
+.right-middle {
+    position: absolute;
+    top: 50%;
+    right: 15%;
+    transform: translateY(-50%); /* Wyrównuje do œrodka */
+    padding: 10px;
+}
+
+.right-bottom {
+    position: absolute;
+    bottom: 15%;
+    right: 15%;
+    padding: 10px;
+}
+
+p {
+    margin: 5px 0;
+    font-size: 20px;
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+
+a{
+    color: whitesmoke;
+    text-decoration: none;
 }
