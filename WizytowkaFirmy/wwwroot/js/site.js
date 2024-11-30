@@ -1,4 +1,20 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// Funkcja ukrywająca alert po 5 sekundach
+document.addEventListener("DOMContentLoaded", function () {
+    var alertElement = document.getElementById("wyslanoEmailAlert");
+    if (alertElement) {
+        setTimeout(function () {
+            alertElement.style.display = "none";
+        }, 5000);
+    }
+});
 
-// Write your JavaScript code.
+// Funkcje używane do reCAPTCHA
+function onloadCallback() {
+    grecaptcha.render('html_element', {
+        'sitekey': clientKey
+    });
+}
+function onSubmit(event) {
+    var token = grecaptcha.getResponse();
+    document.getElementById("recaptchaTokenInputId").value = token;
+}

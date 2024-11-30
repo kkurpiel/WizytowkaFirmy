@@ -4,7 +4,7 @@ html {
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
@@ -17,7 +17,7 @@ html {
   min-height: 100%;
 }
 
-body {
+body { 
   margin-bottom: 60px;
   background-color: rgb(44, 54, 64); /* szary kolor */
   color: whitesmoke;
@@ -60,9 +60,8 @@ header {
 
 .right-middle {
     position: absolute;
-    top: 50%;
+    top: 40%;
     right: 15%;
-    transform: translateY(-50%); /* Wyrównuje do œrodka */
     padding: 10px;
 }
 
@@ -79,7 +78,52 @@ p {
     text-shadow: 2px 2px 4px rgb(0, 0, 0);
 }
 
-a{
+a {
     color: whitesmoke;
     text-decoration: none;
+}
+.container {
+    justify-content: center; /* Wyœrodkowanie poziome */
+    align-items: center; /* Wyœrodkowanie pionowe */
+    position: absolute;
+    top: 10%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.text-center {
+    font-family: Verdana, sans-serif;
+    color: whitesmoke;
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+
+.form-control:focus {
+    border-color: rgb(29, 97, 174);
+    box-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+.btn {
+    background-color: rgb(29, 97, 174);
+    color: white; /* Kolor tekstu */
+    border: 2px solid transparent; /* Przezroczysta obwódka na pocz¹tku */
+    transition: background-color 0.3s, border 0.3s, color 0.3s; /* P³ynne przejœcie */
+    text-shadow: 2px 2px 4px rgb(0, 0, 0); /* Cieñ tekstu: 2px w prawo, 2px w dó³, rozmycie 4px, kolor czarny z przezroczystoœci¹ */
+}
+    /* Styl po najechaniu na przycisk */
+.btn:hover {
+    background-color: rgb(22, 75, 135); /* Zmiana odcienia przycisku */
+    color: whitesmoke; /* Zmiana koloru tekstu na smokewhite */
+    border: 2px solid rgb(22, 75, 135); /* Dodanie obwódki o tym samym kolorze */
+    box-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+label {
+    margin: 5px 0;
+    font-size: 18px;
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+/*  t³o komunikatu z sukcesem wys³ania wiadomoœci   */
+.alert-success {
+    font-size: 16px;
+    background-color: rgb(29, 97, 174);
 }

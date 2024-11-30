@@ -14,26 +14,7 @@ namespace WizytowkaFirmy.Services
         private static readonly byte[] IV = Encoding.UTF8.GetBytes("##SmtpServiceIV#");
         public EmailService(IConfiguration configuration)
         {
-            try
-            {
-                this.configuration = configuration;
-                using (var client = new HttpClient())
-                {
-                    var response = client.GetAsync("https://www.google.com").Result;
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        logger.Error("Brak połączenia z internetem");
-                    }
-                    else
-                    {
-                        logger.Info("Połączenie z internetem działa");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-            }
+            this.configuration = configuration;
         }
         public async Task WyslijEmailAsync(string email_od, string temat, string message)
         {

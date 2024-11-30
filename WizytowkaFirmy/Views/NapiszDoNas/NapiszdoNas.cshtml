@@ -1,0 +1,47 @@
+﻿@model NapiszDoNasModel
+@inject IConfiguration configuration
+@{
+    var clientKey = configuration["reCAPTCHA:ClientKey"];
+}
+<script src="site.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+<script> const clientKey = '@clientKey'; </script>
+
+<div class="container">
+    <h2 class="text-center">Skontakuj się z nami</h2>
+    @if (TempData["WyslanoEmail"] != null)
+    {
+        <div class="alert alert-success text-center" id="wyslanoEmailAlert">@TempData["WyslanoEmail"]</div>
+    }
+
+    <form asp-action="NapiszDoNas" method="post" class="needs-validation" onsubmit="onSubmit(event)" novalidate>
+        <input type="hidden" id="recaptchaTokenInputId" name="RecaptchaResponse"/>
+        <div class="mb-2">
+            <label for="Email" class="form-label">Adres e-mail:</label>
+            <input asp-for="Email" class="form-control" placeholder="Wpisz tutaj swój adres e-mail" />
+            <div class="text-danger">
+                <span asp-validation-for="Email"></span>
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="Temat" class="form-label">Temat wiadomości:</label>
+            <input asp-for="Temat" class="form-control" placeholder="Wpisz tutaj temat wiadomości" />
+            <div class="text-danger">
+                <span asp-validation-for="Temat"></span>
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="Tresc" class="form-label">Treść wiadomości:</label>
+            <textarea asp-for="Tresc" class="form-control" rows="5" placeholder="Wpisz tutaj treść wiadomości"></textarea>
+            <div class="text-danger">
+                <span asp-validation-for="Tresc"></span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end gap-3">
+            <div id="html_element"></div>
+            <button type="submit" class="btn btn-primary" style="flex: 0.25; min-width: 250px;">Wyślij</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
