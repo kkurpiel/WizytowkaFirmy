@@ -127,3 +127,77 @@ label {
     font-size: 16px;
     background-color: rgb(29, 97, 174);
 }
+/*  gwiadki     */
+.star-rating {
+    display: inline-flex;
+    font-size: 3rem; /* Rozmiar gwiazdek */
+    cursor: pointer;
+}
+
+.star-rating span {
+    color: white; /* Bia³e gwiazdki */
+    transition: color 0.3s; /* P³ynne zmiany koloru */
+}
+
+.star-rating span.selected {
+    color: rgb(246, 241, 118);
+}
+/* opinie */
+.opinia-list {
+    list-style: none;
+    padding: 0;
+}
+
+.opinia-widget {
+    background-color: rgb(44, 54, 64);
+    border: 1px solid rgb(29, 97, 174);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
+
+.opinia-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+}
+
+.komentarz {
+    background-color: whitesmoke;
+    color: black;
+    border: 1px solid rgb(29, 97, 174);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: 1px 1px 2px rgb(0, 0, 0);
+    font-size: 16px;
+}
+
+.email {
+    font-size: 20px;
+    color: rgb(29, 97, 174);
+}
+
+.stars-container {
+    display: flex;
+    gap: 2px;
+}
+
+.star {
+    color: #ccc;
+    font-size: 24px;
+    margin-right: 2px;
+    padding: 2px;
+    transition: border-color 0.3s ease;
+}
+
+.star.filled {
+    color: rgb(246, 241, 118);
+}
+
+

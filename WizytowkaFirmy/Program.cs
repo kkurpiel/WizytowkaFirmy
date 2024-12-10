@@ -6,8 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<EmailService>();
-builder.Services.AddScoped<GoogleService>();
+builder.Services.AddScoped<RecaptchaService>();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr")));
+builder.Services.AddScoped<DbService>();
 
 var app = builder.Build();
 

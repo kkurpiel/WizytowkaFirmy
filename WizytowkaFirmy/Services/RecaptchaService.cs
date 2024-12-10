@@ -3,10 +3,10 @@ using System.Text.Json.Nodes;
 
 namespace WizytowkaFirmy.Services
 {
-    public class GoogleService
+    public class RecaptchaService
     {
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
-        public async Task<bool> WeryfikacjareCAPTCHA(string odpowiedz, string serverKey)
+        public async Task<bool> WeryfikacjareCAPTCHA(string odpowiedz, string secretKey)
         {
             try
             {
@@ -19,7 +19,7 @@ namespace WizytowkaFirmy.Services
                     var url = $"https://www.google.com/recaptcha/api/siteverify";
                     MultipartFormDataContent content = new MultipartFormDataContent();
                     content.Add(new StringContent(odpowiedz), "response");
-                    content.Add(new StringContent(serverKey), "secret");
+                    content.Add(new StringContent(secretKey), "secret");
 
                     var result = await httpClient.PostAsync(url, content);
 

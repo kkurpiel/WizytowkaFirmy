@@ -1,55 +1,82 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using NLog;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using WizytowkaFirmy.Models;
+using WizytowkaFirmy.Models.DbModels;
 using WizytowkaFirmy.Services;
 
 namespace WizytowkaFirmy.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration configuration;
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
-
-        public HomeController(ILogger<HomeController> _logger)
+        private DbService dbService;
+        public HomeController(IConfiguration configuration, DbService dbService)
         {
-            this._logger = _logger;
+            this.configuration = configuration;
+            this.dbService = dbService;
         }
-
-        [Route("/ONas")]
-        public IActionResult ONas()
-        {
-            return View();
-        }
-        [Route("/OpinieKlientow")]
-        public IActionResult OpinieKlientow()
-        {
-            return View();
-        }
+        
+        /// <summary>
+        /// Statyczny widok strony g³ównej projektu, wyœwietla podstawowe dane na temat firmy i jej w³aœciciela
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        [Route("/OpinieKlientow/admin")]
-        public IActionResult OpinieKlientowAdmin()
-        {
-            return View();
-        }
-        [HttpPut]
-        [Route("/OpinieKlientow/admin")]
-        public async Task<IActionResult> OpinieKlientowAdmin(OpinieKlientowModel opinieKlientow)
-        {
-            return RedirectToAction("OpinieKlientowAdmin");
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [Route("")]
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex) 
+            {
+                logger.Error($"B³¹d podczas ³adowania strony g³ównej{ex.Message}");
+                return View();
+            }
         }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        /// <summary>
+        /// Statyczny widok strony wyœwietlaj¹cej mapê z lokalizacj¹ firmy i jej krótk¹ historiê
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/o-nas")]
+        public IActionResult ONas()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"B³¹d podczas ³adowania informacji o firmie: {ex.Message}.");
+                return RedirectToAction("");
+            }
+        }
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// Informacje na temat prywatnoœci.
+        /// TODO: Informacje powinny wyœwietlaæ siê w stopce podczas wejœcia na stronê
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Privacy()
         {
             return View();
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// Widok wyœwietlany podczas wyst¹pienia b³êdu
+        /// TODO: Zmieniæ wygl¹d widoku.
+        /// </summary>
+        /// <returns></returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

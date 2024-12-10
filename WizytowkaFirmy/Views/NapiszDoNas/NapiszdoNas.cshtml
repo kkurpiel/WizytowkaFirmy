@@ -1,11 +1,12 @@
-﻿@model NapiszDoNasModel
+﻿@using WizytowkaFirmy.Models.DbModels
+@model WiadomoscEmail
 @inject IConfiguration configuration
 @{
-    var clientKey = configuration["reCAPTCHA:ClientKey"];
+    var siteKey = configuration["reCAPTCHA:SiteKey"];
 }
 <script src="site.js"></script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-<script> const clientKey = '@clientKey'; </script>
+<script> const siteKey = '@siteKey'; </script>
 
 <div class="container">
     <h2 class="text-center">Skontakuj się z nami</h2>
@@ -18,9 +19,9 @@
         <input type="hidden" id="recaptchaTokenInputId" name="RecaptchaResponse"/>
         <div class="mb-2">
             <label for="Email" class="form-label">Adres e-mail:</label>
-            <input asp-for="Email" class="form-control" placeholder="Wpisz tutaj swój adres e-mail" />
+            <input asp-for="Klient.Email" class="form-control" placeholder="Wpisz tutaj swój adres e-mail" />
             <div class="text-danger">
-                <span asp-validation-for="Email"></span>
+                <span asp-validation-for="Klient.Email"></span>
             </div>
         </div>
         <div class="mb-2">
@@ -43,5 +44,3 @@
         </div>
     </form>
 </div>
-
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>

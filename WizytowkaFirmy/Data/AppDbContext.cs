@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WizytowkaFirmy.Models;
+using WizytowkaFirmy.Models.DbModels;
 
 namespace WizytowkaFirmy.Data
 {
@@ -8,6 +8,8 @@ namespace WizytowkaFirmy.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-        public DbSet<OpinieKlientowModel> OpinieKlientow { get; set; }
+        public DbSet<Klient> Klient { get; set; }
+        public DbSet<OpiniaKlienta> OpiniaKlienta { get; set; }
+        public DbSet<WiadomoscEmail> WiadomoscEmail { get; set; }
     }
 }

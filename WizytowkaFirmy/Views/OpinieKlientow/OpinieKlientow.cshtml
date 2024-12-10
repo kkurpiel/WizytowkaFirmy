@@ -1,0 +1,77 @@
+﻿@model OpinieKlientowModel
+@inject IConfiguration configuration
+@{
+    var siteKey = configuration["reCAPTCHA:SiteKey"];
+}
+<script src="site.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+<script> const siteKey = '@siteKey'; </script>
+
+<div class="container">
+    <h2 class="text-center">Dodaj swoją opinię</h2>
+    @if (TempData["WystawionoOpinie"] != null)
+    {
+        <div class="alert alert-success text-center" id="wystawionoOpinieAlert">@TempData["WystawionoOpinie"]</div>
+    }
+
+    <form asp-action="OpinieKlientow" method="post" class="needs-validation" onsubmit="onSubmit(event)" novalidate>
+        <input type="hidden" id="recaptchaTokenInputId" name="RecaptchaResponse" />
+        <div class="mb-2">
+            <label for="Email" class="form-label">Adres e-mail:</label>
+            <input asp-for="NowaOpinia.Klient.Email" class="form-control" placeholder="Wpisz tutaj swój adres e-mail" />
+            <div class="text-danger">
+                <span asp-validation-for="NowaOpinia.Klient.Email"></span>
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="Ocena" class="form-label">Ocena:</label>
+        </div>
+        <div class="star-rating" id="rating-stars">
+            <span data-value="1">&#9733;</span>
+            <span data-value="2">&#9733;</span>
+            <span data-value="3">&#9733;</span>
+            <span data-value="4">&#9733;</span>
+            <span data-value="5">&#9733;</span>
+            <input type="hidden" asp-for="NowaOpinia.Ocena" id="Ocena" value="5" />
+        </div>
+        <div class="mb-2">
+            <label for="Komentarz" class="form-label">Komentarz:</label>
+            <textarea asp-for="NowaOpinia.Komentarz" class="form-control" rows="5" placeholder="Wpisz tutaj treść komentarza"></textarea>
+        </div>
+        <div class="d-flex justify-content-end gap-3">
+            <div id="html_element"></div>
+            <button type="submit" class="btn btn-primary" style="flex: 0.25; min-width: 250px;">Wstaw</button>
+        </div>
+    </form>
+    <h2 class="text-center">Opinie klientów</h2>
+    @if (Model.ListaOpinii.Any())
+    {
+        <div class="opinia-list">
+            @foreach (var opinia in Model.ListaOpinii)
+            {
+                <div class="opinia-widget">
+                    <div class="opinia-header">
+                        <span class="email">@opinia.Klient.Email</span>
+                        <div class="stars-container">
+                            @for (var i = 1; i <= 5; i++)
+                            {
+                                <span class="star @(i <= opinia.Ocena ? "filled" : "")">&#9733;</span>
+                            }
+                        </div>
+                        <span>@opinia.DataWystawienia.ToString("dd MMM yyyy")</span>
+                    </div>
+                    @if (!string.IsNullOrEmpty(opinia.Komentarz))
+                    {
+                        <div class="komentarz">
+                            <a>@opinia.Komentarz</a>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>Brak opinii do wyświetlenia.</p>
+    }
+</div>
