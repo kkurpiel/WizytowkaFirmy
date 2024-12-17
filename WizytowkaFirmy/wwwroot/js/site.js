@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 5000);
     }
 });
-// Funkcja ukrywająca alert o wystawieniu oceny po 5 sekundach
+// Funkcja ukrywająca alert o wystawieniu opinii po 5 sekundach
 document.addEventListener("DOMContentLoaded", function () {
     var alertElement = document.getElementById("wystawionoOpinieAlert");
     if (alertElement) {
@@ -15,6 +15,39 @@ document.addEventListener("DOMContentLoaded", function () {
             alertElement.style.display = "none";
         }, 5000);
     }
+});
+
+// Funkcja ukrywająca alert o ukryciu opinii po 5 sekundach
+document.addEventListener("DOMContentLoaded", function () {
+    var alertElement = document.getElementById("ukrytoOpinieAlert");
+    if (alertElement) {
+        setTimeout(function () {
+            alertElement.style.display = "none";
+        }, 5000);
+    }
+});
+
+// Funkcja odliczająca 15min dla admina
+document.addEventListener("DOMContentLoaded", function () {
+    let timeLeft = 15 * 60;
+
+    const timerElement = document.getElementById("timer");
+
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        timerElement.textContent = `Pozostały czas: ${minutes}:${seconds.toString().padStart(2, "0")}`;
+        timeLeft--;
+
+        if (timeLeft < 0) {
+            clearInterval(timerInterval);
+            timerElement.textContent = "Czas minął!";
+        }
+    }
+
+    const timerInterval = setInterval(updateTimer, 1000);
+    updateTimer();
 });
 
 // Funkcje używane do reCAPTCHA

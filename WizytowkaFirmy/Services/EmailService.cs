@@ -3,6 +3,7 @@ using MailKit.Net.Smtp;
 using NLog;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WizytowkaFirmy.Services
 {
@@ -25,11 +26,27 @@ namespace WizytowkaFirmy.Services
                 var email = new MimeMessage();
                 email.From.Add(new MailboxAddress("Witryna Firmowa", smtpConfig["EmailOd"]));
                 email.To.Add(new MailboxAddress("Administrator", smtpConfig["EmailDo"]));
-                email.Subject = temat;
-                email.Body = new TextPart("plain")
+
+                if (email_od == smtpConfig["EmailDo"] && temat == "Witryna Firmowa, temat: admin")
                 {
-                    Text = $"Wiadomość od: {email_od}\n\n{message}"
-                };
+                    JwtService jwt = new JwtService();
+                    var token = jwt.GenerujTokenJwt(smtpConfig["EmailDo"], 15);
+                    var url = $"https://localhost:7231/opinie-klientow/admin?token={token}";
+
+                    email.Subject = "Link do zarządzania opiniami";
+                    email.Body = new TextPart("plain")
+                    {
+                        Text = $"Wygenerowany link do zarządzania opiniami (ważny 15 minut):\n{url}"
+                    };
+                }
+                else
+                {
+                    email.Subject = temat;
+                    email.Body = new TextPart("plain")
+                    {
+                        Text = $"Wiadomość od: {email_od}\n\n{message}"
+                    };
+                }
 
                 using var smtp = new SmtpClient();
                 await smtp.ConnectAsync(smtpConfig["Host"], int.Parse(smtpConfig["Port"]), MailKit.Security.SecureSocketOptions.StartTls);
@@ -42,6 +59,7 @@ namespace WizytowkaFirmy.Services
                 logger.Error(ex.Message);
             }
         }
+
         public static string Decrypt(string hasloSzyfr)
         {
             try

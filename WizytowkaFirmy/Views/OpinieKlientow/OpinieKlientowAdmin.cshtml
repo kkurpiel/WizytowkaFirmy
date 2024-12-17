@@ -1,0 +1,46 @@
+﻿@model OpinieKlientowModel
+<div class="container">
+
+    @if (TempData["UkrytoOpinie"] != null)
+    {
+        <div class="alert alert-success text-center" id="ukrytoOpinieAlert">@TempData["UkrytoOpinie"]</div>
+    }
+    <h2 class="text-center">Zarządzanie opiniami - administrator</h2>
+    @if (Model.ListaOpinii.Any())
+    {
+        <div class="opinia-list">
+            @foreach (var opinia in Model.ListaOpinii)
+            {
+                <div class="opinia-widget">
+                    <div class="opinia-header">
+                        <span class="email">@opinia.Klient.Email</span>
+                        <div class="stars-container">
+                            @for (var i = 1; i <= 5; i++)
+                            {
+                                <span class="star @(i <= opinia.Ocena ? "filled" : "")">&#9733;</span>
+                            }
+                        </div>
+                        <span>@opinia.DataWystawienia.ToString("dd MMM yyyy")</span>
+                        <form asp-action="OpinieKlientowAdmin" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@opinia.Id" />
+                            <input type="hidden" name="token" value="@ViewBag.Token" />
+                            <button type="submit" class="btn btn-danger btn-sm"> x </button>
+                        </form>
+                    </div>
+                    @if (!string.IsNullOrEmpty(opinia.Komentarz))
+                    {
+                        <div class="komentarz">
+                            <a>@opinia.Komentarz</a>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>Brak opinii do wyświetlenia.</p>
+    }
+</div>
+
+

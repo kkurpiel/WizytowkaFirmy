@@ -117,5 +117,27 @@ namespace WizytowkaFirmy.Services
                 return new List<OpiniaKlienta>();
             }
         }
+
+        public async Task UkryjOpinie(int id)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var opinia = await context.OpiniaKlienta.FirstOrDefaultAsync(x => x.Id == id);
+                    if (opinia != null)
+                    {
+                        opinia.JestUkryta = true;
+                        await context.SaveChangesAsync();
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message);
+                    transaction.Rollback();
+                }
+            }
+        }
     }
 }

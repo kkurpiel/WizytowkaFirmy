@@ -5,6 +5,9 @@ using WizytowkaFirmy.Models.DbModels;
 using WizytowkaFirmy.Models;
 using WizytowkaFirmy.Services;
 using NLog;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace WizytowkaFirmy.Controllers
 {
@@ -14,6 +17,7 @@ namespace WizytowkaFirmy.Controllers
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private RecaptchaService recaptchaService;
         private DbService dbService;
+        private JwtService jwtService = new JwtService();
         public OpinieKlientowController(IConfiguration configuration, DbService dbService, RecaptchaService recaptchaService)
         {
             this.configuration = configuration;
@@ -54,7 +58,7 @@ namespace WizytowkaFirmy.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("/opinie-klientow")]
-        public async Task<IActionResult> OpinieKlientow(OpinieKlientowModel model, string RecaptchaResponse)
+        public async Task<IActionResult> OpinieKlientow(OpinieKlientowModel model, string RecaptchaResponse, string? token, int id)
         {
             try
             {
@@ -92,6 +96,50 @@ namespace WizytowkaFirmy.Controllers
                 ModelState.AddModelError("", "Wystąpił błąd podczas wystawiania opinii.");
                 logger.Error($"Błąd podczas dodawania nowej opinii: {ex.Message}");
                 return RedirectToAction("");
+            }
+        }
+        [HttpGet]
+        [Route("/opinie-klientow/admin")]
+        public async Task<IActionResult> OpinieKlientowAdmin(string token)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(token) || !jwtService.WalidacjaTokenuJwt(token))
+                {
+                    return Unauthorized("Nieprawidłowy lub brakujący token JWT.");
+                }
+                ViewBag.Token = jwtService.GenerujTokenJwt("admin", 15);
+                var model = new OpinieKlientowModel
+                {
+                    ListaOpinii = await dbService.OpinieKlientow(),
+                    NowaOpinia = new OpiniaKlienta()
+                };
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Błąd podczas ładowania opinii klientów ADMIN: {ex.Message}");
+                return RedirectToAction("");
+            }
+        }
+        [HttpPost]
+        [Route("/opinie-klientow/admin")]
+        public async Task<IActionResult> OpinieKlientowAdmin(int id, string token)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(token) || !jwtService.WalidacjaTokenuJwt(token))
+                {
+                    return Unauthorized("Nieprawidłowy token.");
+                }
+                await dbService.UkryjOpinie(id); 
+                TempData["UkrytoOpinie"] = "Opinia została ukryta.";
+                return RedirectToAction("OpinieKlientowAdmin", new { token });
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Błąd podczas ukrywania opinii: {ex.Message}");
+                return RedirectToAction("OpinieKlientowAdmin", new { token });
             }
         }
     }
