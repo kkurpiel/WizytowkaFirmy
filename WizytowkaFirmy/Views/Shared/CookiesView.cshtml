@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+
+@{
+    var consentFeatureFlag = Context.Features.Get<ITrackingConsentFeature>();
+    var showBannerFlag = !consentFeatureFlag?.CanTrack ?? false;
+    var cookieStr = consentFeatureFlag?.CreateConsentCookie();
+}
+
+@if (showBannerFlag)
+{
+    <div id="cookieConsentdiv">
+        <h3 class="display-6">Polityka plików cookies</h3>
+        <p>Nasza witryna korzysta z plików cookies. Kliknij <a href="/Privacy">tutaj</a> aby dowiedzieć się więcej.</p>
+        <button type="button" data-cookie-string="@cookieStr">
+            <span aria-hidden="true">Akceptuj</span>
+        </button>
+    </div>
+}

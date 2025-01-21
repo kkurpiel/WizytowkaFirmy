@@ -9,6 +9,11 @@ builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<RecaptchaService>();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr")));
 builder.Services.AddScoped<DbService>();
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
 
 var app = builder.Build();
 
@@ -22,7 +27,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseCookiePolicy();
 app.UseRouting();
 
 app.UseAuthorization();

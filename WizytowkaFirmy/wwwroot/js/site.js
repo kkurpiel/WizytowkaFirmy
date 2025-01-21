@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 5000);
     }
 });
+
 // Funkcja ukrywająca alert o wystawieniu opinii po 5 sekundach
 document.addEventListener("DOMContentLoaded", function () {
     var alertElement = document.getElementById("wystawionoOpinieAlert");
@@ -27,11 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Funkcja odliczająca 15min dla admina
+// Funkcja odliczająca 15 min dla admina
 document.addEventListener("DOMContentLoaded", function () {
     let timeLeft = 15 * 60;
 
     const timerElement = document.getElementById("timer");
+
+    if (!timerElement) return;
 
     function updateTimer() {
         const minutes = Math.floor(timeLeft / 60);
@@ -61,7 +64,7 @@ function onSubmit(event) {
     document.getElementById("recaptchaTokenInputId").value = token;
 }
 
-// gwiadki
+// Gwiazdki
 document.addEventListener("DOMContentLoaded", function () {
     const stars = document.querySelectorAll("#rating-stars span");
     const hiddenInput = document.querySelector("#Ocena");
@@ -103,7 +106,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
-
-
-
+// Cookie consent
+document.addEventListener("DOMContentLoaded", function () {
+    const cookieConsentDiv = document.getElementById("cookieConsentdiv");
+    if (cookieConsentDiv) {
+        const button = cookieConsentDiv.querySelector("button[data-cookie-string]");
+        button.addEventListener("click", function () {
+            const cookieString = button.getAttribute("data-cookie-string");
+            if (cookieString) {
+                document.cookie = cookieString;
+                cookieConsentDiv.style.display = "none";
+            }
+        });
+    }
+});

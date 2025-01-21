@@ -201,3 +201,54 @@ label {
 }
 
 
+
+
+#cookieConsentdiv {
+    z-index: 1000;
+    position: fixed;
+    width: 100%; /* Pasek zajmuje ca³¹ szerokoœæ strony */
+    bottom: 0;
+    left: 0; /* Pasek zaczyna siê od lewej krawêdzi */
+    background-color: rgb(44, 54, 64); /* Kolor t³a dopasowany do reszty strony */
+    color: whitesmoke; /* Kolor tekstu pasuj¹cy do reszty strony */
+    padding: 20px 30px; /* Padding z lewej i prawej strony */
+    font-family: 'Century Gothic', sans-serif;
+    text-align: left; /* Wyrównanie tekstu do lewej */
+    box-shadow: 0px 3px 10px 5px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: space-between; /* Wyrównanie tekstu i przycisku po przeciwnych stronach */
+    align-items: center; /* Wyrównanie elementów w pionie */
+}
+
+    #cookieConsentdiv button {
+        border: none;
+        background-color: rgb(29, 97, 174); /* Kolor t³a dopasowany do reszty strony */
+        padding: 10px 50px;
+        margin-top: 0;
+        color: white;
+        transition: all ease 0.5s;
+        font-size: 18px;
+        text-transform: uppercase; /* Du¿e litery dla przycisku */
+        border-radius: 5px; /* Lekko zaokr¹glone rogi przycisku */
+    }
+
+        #cookieConsentdiv button:hover {
+            background-color: rgb(22, 75, 135); /* Ciemniejszy kolor t³a przy najechaniu */
+        }
+
+    #cookieConsentdiv h3 {
+        font-size: 20px; /* Dopasowanie wielkoœci nag³ówka */
+        margin: 0; /* Brak marginesu, aby lepiej pasowa³o do innych elementów */
+    }
+
+    #cookieConsentdiv p {
+        font-size: 14px; /* Dopasowanie rozmiaru tekstu */
+        margin-bottom: 0; /* Usuniêcie marginesu, by przycisk i tekst by³y bardziej zwarty */
+    }
+
+    #cookieConsentdiv a {
+        color: rgb(246, 241, 118); /* Kolor odnoœników, aby pasowa³ do reszty strony */
+        text-decoration: underline;
+    }
+
+
