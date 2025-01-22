@@ -1,10 +1,22 @@
 # WizytowkaFirmy
+Funkcjonalności aplikacji 
 
-#Uruchomienie aplikacji
+- wyświetlanie głównych danych firmy,
+- wysyłanie wiadomości e-mail po weryfikacji reCAPTCHA,
+- udostępnianie lokalizacji przez Google Maps,
+- opis  i historia firmy,
+- wystawianie opinii przez klientów po weryfikacji reCAPTCHA,
+- zarządzanie opiniami przez administratora,
+- informacje na temat plików cookies.
+
+
+Uruchomienie aplikacji
+
 W celu uruchomienia aplikacji należy zmienić ustawienia w pliku appsettings.json. W części “SMTP” należy podać własną konfigurację wysyłania adresu e-mail, zależną
 od używanej poczty. Pole “EmailOd” odpowiada adresowi e-mail z jakiego będą przychodzić wiadomości, np. kontakt@firma.pl, pole “Password” przechowuje zaszyfrowane hasło do poczty. Hasło można zaszyfrować przy użyciu aplikacji SzyfrowanieHasel dołączonej na repozytorium. Pole “EmailDo” odpowiada adresowi e-mail, na które mają zostać wysyłane wiadomości od klientów. Dodatkowo w części “ConnectionStrings” należy umieścić connection string pozwalający na połączenie z własną bazą danych.
 
-#Obsługa reCAPTCHA
+Obsługa reCAPTCHA
+
 W celu dodania widżetu reCAPTCHA do projektu należy wejść na stronę https://www.google.com/recaptcha, zarejestrować domenę oraz wybrać wersję reCAPTCHA (v2, nie jestem robotem). Po przesłaniu formularza wygenerowane zostaną dwa klucze: publiczny i prywatny. Posiadając te klucze możemy przejść do zabezpieczania formularzy.
 
 W widoku, w którym chcemy używać weryfikacji reCAPTCHA należy dodać:
@@ -19,7 +31,8 @@ Metoda przyjmuje dwa parametry: token reCAPTCHA uzyskany z frontendu oraz klucz 
 Jeśli weryfikacja zakończy się sukcesem, metoda zwraca pozytywny wynik, który można wykorzystać do dalszego przetwarzania żądań użytkownika. W przypadku błędu lub niepowodzenia weryfikacji zwracana jest wartość negatywna.
 
 
-#Opis commitów
+Opis commitów
+
 Commit(27-11-2024) - 'Dodaj .gitattributes, .gitignorei README.md' - stworzenie repozytorium
 
 Commit(27-11-2024) - 'Dodaj pliki projektów.' - dodanie plików projektu do repozytorium
