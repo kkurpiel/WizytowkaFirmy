@@ -15,6 +15,10 @@ Uruchomienie aplikacji
 W celu uruchomienia aplikacji należy zmienić ustawienia w pliku appsettings.json. W części “SMTP” należy podać własną konfigurację wysyłania adresu e-mail, zależną
 od używanej poczty. Pole “EmailOd” odpowiada adresowi e-mail z jakiego będą przychodzić wiadomości, np. kontakt@firma.pl, pole “Password” przechowuje zaszyfrowane hasło do poczty. Hasło można zaszyfrować przy użyciu aplikacji SzyfrowanieHasel dołączonej na repozytorium. Pole “EmailDo” odpowiada adresowi e-mail, na które mają zostać wysyłane wiadomości od klientów. Dodatkowo w części “ConnectionStrings” należy umieścić connection string pozwalający na połączenie z własną bazą danych.
 
+Panel administratora
+
+W celu wyświetlenia panelu administratora należy uzupełnić formularz kontaktowy, wpisując w polu adresu e-mail adres, z pola "EmailOD" pliku appsettings.json oraz w temacie wiadomości "admin". Pole z treścią wiadomości można uzupełnić dowolnie. Na skrzynkę pocztową powinna przyjść wiadomość z wygenerowanym linkiem do panelu administratora, który działa przez 15 minut.
+
 Obsługa reCAPTCHA
 
 W celu dodania widżetu reCAPTCHA do projektu należy wejść na stronę https://www.google.com/recaptcha, zarejestrować domenę oraz wybrać wersję reCAPTCHA (v2, nie jestem robotem). Po przesłaniu formularza wygenerowane zostaną dwa klucze: publiczny i prywatny. Posiadając te klucze możemy przejść do zabezpieczania formularzy.
